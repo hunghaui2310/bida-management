@@ -108,6 +108,7 @@
   },
   "defaultProject": "bida-management",
   "cli": {
+    "analytics": false,
     "packageManager": "npm"
   }
 }
