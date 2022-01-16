@@ -3,37 +3,47 @@ import { RouterModule } from '@angular/router';
 
 import { errorRoute } from './layouts/error/error.route';
 import { navbarRoute } from './layouts/navbar/navbar.route';
-import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
+import { DefaultLayoutComponent } from './layouts/default-layout/default-layout.component';
 
 const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(
-      [
-        {
-          path: 'admin',
-          data: {
-            authorities: [Authority.ADMIN],
-          },
-          canActivate: [UserRouteAccessService],
-          loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule),
+    RouterModule.forRoot([
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+      {
+        path: '',
+        component: DefaultLayoutComponent,
+        data: {
+          title: 'Home',
         },
-        {
-          path: 'account',
-          loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+        children: [],
+      },
+      {
+        path: 'admin',
+        data: {
+          authorities: [Authority.ADMIN],
         },
-        {
-          path: 'login',
-          loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
-        },
-        ...LAYOUT_ROUTES,
-      ],
-      { enableTracing: DEBUG_INFO_ENABLED }
-    ),
+        canActivate: [UserRouteAccessService],
+        loadChildren: () => import('./admin/admin-routing.module').then(m => m.AdminRoutingModule),
+      },
+      {
+        path: 'account',
+        loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+      },
+      {
+        path: 'login',
+        loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
+      },
+      ...LAYOUT_ROUTES,
+    ]),
   ],
   exports: [RouterModule],
 })
