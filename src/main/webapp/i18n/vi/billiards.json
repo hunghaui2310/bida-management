@@ -1,0 +1,16 @@
+{
+  "billiards": {
+    "list": "Danh sách bàn bida",
+    "table": {
+      "no": "STT",
+      "name": "Tên",
+      "price": "Giá",
+      "status": "Trạng thái"
+    },
+    "form": {
+      "formTitle": "Thêm/sửa bàn bida",
+      "name": "Tên",
+      "price": "Giá"
+    }
+  }
+}

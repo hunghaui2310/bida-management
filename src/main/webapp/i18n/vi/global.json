@@ -134,5 +134,31 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "Đây là chân trang của bạn"
+  "footer": "Đây là chân trang của bạn",
+  "pagination": {
+    "summary": "Hiển thị từ {{from}} đến {{to}} của {{total}} kết quả",
+    "pageSize": "Số bản ghi trên 1 trang"
+  },
+  "status": {
+    "active": "Đang hoạt động",
+    "nonactive": "Không hoạt động",
+    "1": "Đang hoạt động",
+    "0": "Không hoạt động",
+    "": "Tất cả"
+  },
+  "common": {
+    "note": "Chú ý",
+    "deleteConfirm": "Bạn có chắc chắn muốn xóa?",
+    "ok": "Đồng ý",
+    "cancel": "Hủy",
+    "back": "Quay lại",
+    "save": "Lưu",
+    "save.success": "Lưu thành công",
+    "save.error": "Lưu thất bại",
+    "delete.success": "Xóa thành công",
+    "delete.error": "Xóa thất bại"
+  },
+  "validation": {
+    "required": "Không được để trống"
+  }
 }

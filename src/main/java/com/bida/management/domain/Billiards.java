@@ -27,8 +27,8 @@ public class Billiards implements Serializable {
     private String name;
 
     @NotNull
-    @Column(name = "is_online", nullable = false)
-    private boolean isOnline = false;
+    @Column(name = "status", nullable = false)
+    private int status;
 
     @NotNull
     @Column(nullable = false)
@@ -36,4 +36,9 @@ public class Billiards implements Serializable {
 
     @OneToMany(mappedBy = "billiards")
     private Set<HistoryBilliards> historyBilliards;
+
+    public Billiards(String name, Integer status) {
+        this.name = name;
+        this.status = status;
+    }
 }

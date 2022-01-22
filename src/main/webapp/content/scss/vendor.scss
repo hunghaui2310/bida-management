@@ -11,3 +11,6 @@ eg $input-color: red;
 
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */
 @import '~@coreui/coreui/scss/coreui';
+@import '~@ng-select/ng-select/themes/default.theme.css';
+@import 'custom';
+@import '~ngx-toastr/toastr';

@@ -1,5 +1,6 @@
 package com.bida.management.service;
 
+import com.bida.management.config.Constants;
 import com.bida.management.domain.Billiards;
 import com.bida.management.repository.IBilliardsRepository;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class BilliardsService implements IBaseService<Billiards, Long> {
 
     @Override
     public Optional<Billiards> findById(Long id) {
-        return Optional.empty();
+        return billiardsRepository.findById(id);
     }
 
     @Transactional
@@ -34,5 +35,14 @@ public class BilliardsService implements IBaseService<Billiards, Long> {
     }
 
     @Override
-    public void remove(Long id) {}
+    @Transactional
+    public void remove(Long id) {
+        billiardsRepository.deleteById(id);
+    }
+
+    public Page<Billiards> search(Pageable pageable, Billiards billiards) {
+        return billiards.getStatus() == Constants.STATUS.ALL
+            ? billiardsRepository.findAllByNameContainingIgnoreCase(pageable, billiards.getName())
+            : billiardsRepository.findAllByNameContainingIgnoreCaseAndStatus(pageable, billiards.getName(), billiards.getStatus());
+    }
 }

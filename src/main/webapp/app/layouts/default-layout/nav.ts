@@ -5,28 +5,16 @@ export const navItems: INavData[] = [
     name: 'Dashboard',
     url: '/dashboard',
     icon: 'icon-speedometer',
-    badge: {
-      variant: 'info',
-      text: 'NEW',
-    },
   },
   {
-    title: true,
-    name: 'Theme',
-  },
-  {
-    name: 'Colors',
-    url: '/theme/colors',
+    name: 'Billiards',
+    url: '/billiards/list',
     icon: 'icon-drop',
   },
   {
     name: 'Typography',
     url: '/theme/typography',
     icon: 'icon-pencil',
-  },
-  {
-    title: true,
-    name: 'Components',
   },
   {
     name: 'Base',
@@ -158,44 +146,6 @@ export const navItems: INavData[] = [
     ],
   },
   {
-    name: 'Notifications',
-    url: '/notifications',
-    icon: 'icon-bell',
-    children: [
-      {
-        name: 'Alerts',
-        url: '/notifications/alerts',
-        icon: 'icon-bell',
-      },
-      {
-        name: 'Badges',
-        url: '/notifications/badges',
-        icon: 'icon-bell',
-      },
-      {
-        name: 'Modals',
-        url: '/notifications/modals',
-        icon: 'icon-bell',
-      },
-    ],
-  },
-  {
-    name: 'Widgets',
-    url: '/widgets',
-    icon: 'icon-calculator',
-    badge: {
-      variant: 'info',
-      text: 'NEW',
-    },
-  },
-  {
-    divider: true,
-  },
-  {
-    title: true,
-    name: 'Extras',
-  },
-  {
     name: 'Pages',
     url: '/pages',
     icon: 'icon-star',
@@ -223,28 +173,43 @@ export const navItems: INavData[] = [
     ],
   },
   {
-    name: 'Disabled',
-    url: '/dashboard',
-    icon: 'icon-ban',
-    badge: {
-      variant: 'secondary',
-      text: 'NEW',
-    },
-    attributes: { disabled: true },
+    divider: true,
   },
   {
-    name: 'Download CoreUI',
-    url: 'http://coreui.io/angular/',
-    icon: 'icon-cloud-download',
-    class: 'mt-auto',
-    variant: 'success',
-    attributes: { target: '_blank', rel: 'noopener' },
-  },
-  {
-    name: 'Try CoreUI PRO',
-    url: 'http://coreui.io/pro/angular/',
-    icon: 'icon-layers',
-    variant: 'danger',
-    attributes: { target: '_blank', rel: 'noopener' },
+    name: 'Admin',
+    url: '/admin',
+    icon: 'icon-user',
+    children: [
+      {
+        name: 'User',
+        url: '/admin/user-management',
+        icon: 'none',
+      },
+      {
+        name: 'Metrics',
+        url: '/admin/metrics',
+        icon: 'none',
+      },
+      {
+        name: 'Health',
+        url: '/admin/health',
+        icon: 'none',
+      },
+      {
+        name: 'Configuration',
+        url: '/admin/configuration',
+        icon: 'none',
+      },
+      {
+        name: 'Logs',
+        url: '/admin/logs',
+        icon: 'none',
+      },
+      {
+        name: 'API',
+        url: '/admin/docs',
+        icon: 'none',
+      },
+    ],
   },
 ];

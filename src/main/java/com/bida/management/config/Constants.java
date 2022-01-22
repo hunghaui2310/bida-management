@@ -11,5 +11,11 @@ public final class Constants {
     public static final String SYSTEM = "system";
     public static final String DEFAULT_LANGUAGE = "en";
 
+    public interface STATUS {
+        final Integer ACTIVE = 1;
+        final Integer NONACTIVE = 0;
+        final Integer ALL = -1;
+    }
+
     private Constants() {}
 }

@@ -1,5 +1,5 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, registerLocaleData } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import locale from '@angular/common/locales/en';
 import { BrowserModule, Title } from '@angular/platform-browser';
@@ -22,7 +22,6 @@ import { httpInterceptorProviders } from 'app/core/interceptor/index';
 import { translatePartialLoader, missingTranslationHandler } from './config/translation.config';
 import { MainComponent } from './layouts/main/main.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
-import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
@@ -34,6 +33,10 @@ import { AppAsideModule, AppBreadcrumbModule, AppHeaderModule, AppFooterModule, 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
+import { BilliardsModule } from './modules/billiards/billiards.module';
+import { DashboardComponent } from './layouts/dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -66,11 +69,15 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     PerfectScrollbarModule,
+    LoadingBarRouterModule,
+    LoadingBarModule,
+    BilliardsModule,
   ],
   providers: [
     Title,
     { provide: LOCALE_ID, useValue: 'en' },
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     httpInterceptorProviders,
   ],
   declarations: [
@@ -79,8 +86,8 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
     ErrorComponent,
     PageRibbonComponent,
     ActiveMenuDirective,
-    FooterComponent,
     DefaultLayoutComponent,
+    DashboardComponent,
   ],
   bootstrap: [MainComponent],
 })
@@ -96,7 +103,7 @@ export class AppModule {
     registerLocaleData(locale);
     iconLibrary.addIcons(...fontAwesomeIcons);
     dpConfig.minDate = { year: dayjs().subtract(100, 'year').year(), month: 1, day: 1 };
-    translateService.setDefaultLang('en');
+    translateService.setDefaultLang('vi');
     // if user have changed language and navigates away from the application and back to the application then use previously choosed language
     const langKey = sessionStorageService.retrieve('locale') ?? 'en';
     translateService.use(langKey);
