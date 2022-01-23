@@ -71,6 +71,7 @@
         </tr>
       </tbody>
     </table>
+    <div *ngIf="!modelList || !modelList.length" class="nodata">{{ 'common.nodata' | translate }}</div>
     <div class="card-footer">
       <ng-container *ngIf="modelList && modelList.length > 0">
         <div class="d-flex justify-content-between">

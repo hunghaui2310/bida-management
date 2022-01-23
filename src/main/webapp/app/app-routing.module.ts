@@ -78,6 +78,14 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
             canActivate: [UserRouteAccessService],
             loadChildren: () => import('./modules/customer/customer.module').then(m => m.CustomerModule),
           },
+          {
+            path: 'product-history',
+            data: {
+              authorities: [Authority.ADMIN],
+            },
+            canActivate: [UserRouteAccessService],
+            loadChildren: () => import('./modules/product-history/product-history.module').then(m => m.ProductHistoryModule),
+          },
         ],
       },
       {

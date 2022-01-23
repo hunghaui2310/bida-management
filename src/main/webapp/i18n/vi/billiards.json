@@ -16,7 +16,8 @@
     "dashboard": {
       "addService": "Thêm dịch vụ",
       "printBill": "In hóa đơn",
-      "history": "Xem lịch sử"
+      "history": "Xem lịch sử",
+      "oneHour": "1 giờ"
     }
   }
 }

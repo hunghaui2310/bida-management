@@ -20,7 +20,7 @@
           </label>
         </div>
         <div>{{ item.name }}</div>
-        <span>{{ item.price | number }}</span>
+        <span>{{ item.price | number }} / <span jhiTranslate="billiards.dashboard.oneHour"></span></span>
       </div>
       <div class="chart-wrapper mt-3 mx-3" style="height: 30px">
         <div *ngIf="item.state && item.historyBilliardLast">

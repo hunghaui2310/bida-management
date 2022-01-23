@@ -1,0 +1,11 @@
+{
+  "product-history": {
+    "name": "Lịch sử sản phẩm",
+    "list": "Danh sách lịch sử sản phẩm",
+    "table": {
+      "no": "STT",
+      "startTimeActive": "Thời gian bắt đầu",
+      "endTimeActive": "Thời gian kết thúc"
+    }
+  }
+}
