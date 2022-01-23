@@ -3,6 +3,8 @@ package com.bida.management.service;
 import com.bida.management.config.Constants;
 import com.bida.management.domain.Billiards;
 import com.bida.management.repository.IBilliardsRepository;
+import com.bida.management.util.AppConstant;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,10 @@ public class BilliardsService implements IBaseService<Billiards, Long> {
     @Override
     public Page<Billiards> findAll(Pageable pageable) {
         return billiardsRepository.findAll(pageable);
+    }
+
+    public List<Billiards> findAllBilliardsActive() {
+        return billiardsRepository.findAllByStatus(AppConstant.STATUS.ACTIVE);
     }
 
     @Override

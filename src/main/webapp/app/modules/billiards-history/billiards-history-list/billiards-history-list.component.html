@@ -62,7 +62,7 @@
             <i class="fa fa-circle text-secondary" *ngIf="item.status == 0"></i>
           </td>
           <td>{{ item.name }}</td>
-          <td>{{ item.price | number }}</td>
+          <td>{{ item.price }}</td>
           <td [innerHTML]="item.status | status"></td>
           <td>
             <a (click)="edit(item)"><i class="fa fa-edit"></i></a>

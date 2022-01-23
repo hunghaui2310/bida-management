@@ -149,16 +149,27 @@
   "common": {
     "note": "Chú ý",
     "deleteConfirm": "Bạn có chắc chắn muốn xóa?",
+    "changeStateConfirm": "Bạn có chắc chắn muốn chuyển trạng thái?",
     "ok": "Đồng ý",
     "cancel": "Hủy",
     "back": "Quay lại",
     "save": "Lưu",
     "save.success": "Lưu thành công",
+    "change.success": "Thay đổi thành công",
     "save.error": "Lưu thất bại",
+    "change.error": "Thay đổi thất bại",
     "delete.success": "Xóa thành công",
-    "delete.error": "Xóa thất bại"
+    "delete.error": "Xóa thất bại",
+    "nodata": "Không có dữ liệu"
   },
   "validation": {
     "required": "Không được để trống"
+  },
+  "nav": {
+    "dashboard": "Bảng điều khiển",
+    "billiards": "Bàn bida",
+    "billiards-history": "Lịch sử bàn bida",
+    "employee": "Nhân viên",
+    "customer": "Khách hàng"
   }
 }

@@ -1,0 +1,62 @@
+<div class="p-1">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left" jhiTranslate="billiards-history.name"></h4>
+    <h4 class="modal-title pull-left">: {{ billiardsName }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body p-0">
+    <div class="card border-0 rounded-0">
+      <div class="card-body">
+        <!-- TABLE -->
+        <table class="table my-table">
+          <thead>
+            <tr>
+              <th><span jhiTranslate="billiards-history.table.no">STT</span></th>
+              <th><span jhiTranslate="billiards-history.table.startTimeActive">Thời gian bắt đầu</span></th>
+              <th><span jhiTranslate="billiards-history.table.endTimeActive">Thời gian kết thúc</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of modelList; let index = index">
+              <td>{{ index + 1 + (page - 1) * pageSize }}</td>
+              <td>{{ item.startTimeActive | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+              <td>{{ item.endTimeActive | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="!modelList || !modelList.length" class="nodata">{{ 'common.nodata' | translate }}</div>
+      <div class="card-footer" *ngIf="modelList && modelList.length > 0">
+        <ng-container>
+          <div class="d-flex justify-content-between">
+            <span
+              [translate]="'pagination.summary'"
+              [translateParams]="{ from: (page - 1) * pageSize + 1, to: (page - 1) * pageSize + modelList.length, total: totalItems }"
+            ></span>
+            <div class="pagination-wrapper">
+              <div class="d-inline-block">
+                <pagination
+                  [totalItems]="totalItems"
+                  [(ngModel)]="page"
+                  [maxSize]="3"
+                  [itemsPerPage]="pageSize"
+                  (pageChanged)="pageChanged()"
+                  previousText="&lsaquo;"
+                  nextText="&rsaquo;"
+                  firstText="&laquo;"
+                  lastText="&raquo;"
+                  [boundaryLinks]="true"
+                  [rotate]="false"
+                  (numPages)="numPages = $event"
+                >
+                </pagination>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

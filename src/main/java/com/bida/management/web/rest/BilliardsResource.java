@@ -48,23 +48,37 @@ public class BilliardsResource {
     }
 
     /**
-     * {@code GET /billiards} : get all billiards with all the details
+     * {@code GET /billiards} : get billiards with paging
      *
      * @param pageable the pagination information.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all billiards.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body is billiards.
      */
     @GetMapping
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
-    public ResponseEntity<Page<Billiards>> getAllBilliards(
+    public ResponseEntity<Page<Billiards>> pagingBilliards(
         Pageable pageable,
         @RequestParam(defaultValue = "", required = false) String name,
         @RequestParam(defaultValue = "-1", required = false) Integer status
     ) {
-        log.debug("REST request to get all Billiards");
+        log.debug("REST request to paging with Billiards");
 
         final Page<Billiards> page = billiardsService.search(pageable, new Billiards(name, status));
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page, headers, HttpStatus.OK);
+    }
+
+    /**
+     * {@code GET /billiards/getAll} : get all billiards
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all billiards.
+     */
+    @GetMapping("/getAll")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.USER + "\")")
+    public ResponseEntity<Iterable<Billiards>> getAllBilliards() {
+        log.debug("REST request to get all Billiards");
+
+        final Iterable<Billiards> page = billiardsService.findAllBilliardsActive();
+        return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
     /**

@@ -1,5 +1,6 @@
 {
   "billiards": {
+    "name": "Bàn bida",
     "list": "Danh sách bàn bida",
     "table": {
       "no": "STT",
@@ -11,6 +12,11 @@
       "formTitle": "Thêm/sửa bàn bida",
       "name": "Tên",
       "price": "Giá"
+    },
+    "dashboard": {
+      "addService": "Thêm dịch vụ",
+      "printBill": "In hóa đơn",
+      "history": "Xem lịch sử"
     }
   }
 }

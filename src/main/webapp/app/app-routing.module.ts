@@ -54,6 +54,30 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
             canActivate: [UserRouteAccessService],
             loadChildren: () => import('./modules/billiards/billiards.module').then(m => m.BilliardsModule),
           },
+          {
+            path: 'billiards-history',
+            data: {
+              authorities: [Authority.ADMIN],
+            },
+            canActivate: [UserRouteAccessService],
+            loadChildren: () => import('./modules/billiards-history/billiards-history.module').then(m => m.BilliardsHistoryModule),
+          },
+          {
+            path: 'employee',
+            data: {
+              authorities: [Authority.ADMIN],
+            },
+            canActivate: [UserRouteAccessService],
+            loadChildren: () => import('./modules/employee/user-management.module').then(m => m.UserManagementModule),
+          },
+          {
+            path: 'customer',
+            data: {
+              authorities: [Authority.ADMIN],
+            },
+            canActivate: [UserRouteAccessService],
+            loadChildren: () => import('./modules/customer/customer.module').then(m => m.CustomerModule),
+          },
         ],
       },
       {

@@ -1,6 +1,7 @@
 package com.bida.management.repository;
 
 import com.bida.management.domain.Billiards;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -11,4 +12,6 @@ public interface IBilliardsRepository extends PagingAndSortingRepository<Billiar
     Page<Billiards> findAllByNameContainingIgnoreCaseAndStatus(Pageable pageable, String name, Integer status);
 
     Page<Billiards> findAllByNameContainingIgnoreCase(Pageable pageable, String name);
+
+    List<Billiards> findAllByStatus(Integer status);
 }

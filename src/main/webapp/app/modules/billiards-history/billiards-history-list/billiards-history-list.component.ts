@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { ITEMS_PER_PAGE } from '../../../config/pagination.constants';
-import { ActivatedRoute, Router } from '@angular/router';
-import { BilliardsService } from '../../../service/billiards.service';
-import { appendParamsToUrl, deleteConfig } from '../../../util/common.util';
 import { PAGE_REGEX, STATUS_BASE } from '../../../constant/app.constant';
-import swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
+import { appendParamsToUrl, deleteConfig } from '../../../util/common.util';
+import swal from 'sweetalert2';
+import { BilliardsHistoryService } from '../../../service/billiards-history.service';
 
 @Component({
-  selector: 'app-billiards',
-  templateUrl: './billiards-list.component.html',
+  selector: 'app-billiards-history',
+  templateUrl: './billiards-history-list.component.html',
 })
-export class BilliardsListComponent implements OnInit {
+export class BilliardsHistoryListComponent implements OnInit {
   modelList: any;
   pageSize = ITEMS_PER_PAGE;
   page = 1;
@@ -31,7 +31,7 @@ export class BilliardsListComponent implements OnInit {
     public route: Router,
     private toast: ToastrService,
     private translate: TranslateService,
-    private billiardService: BilliardsService
+    private billiardHistoryService: BilliardsHistoryService
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +39,7 @@ export class BilliardsListComponent implements OnInit {
   }
 
   getModelList() {
-    const filter = { ...this.filter, page: this.page - 1, size: this.pageSize };
-    this.billiardService.paging(filter).subscribe((res: any) => {
+    this.billiardHistoryService.getAll(this.filter).subscribe((res: any) => {
       if (!res || !res.body) {
         return;
       }
@@ -64,7 +63,7 @@ export class BilliardsListComponent implements OnInit {
     if (!item) {
       return;
     }
-    this.route.navigate(['billiards', item.id]);
+    this.route.navigate(['billiards-history', item.id]);
   }
 
   delete(item) {
@@ -75,7 +74,7 @@ export class BilliardsListComponent implements OnInit {
       if (!result || !result.value) {
         return;
       }
-      this.billiardService.delete(item.id).subscribe({
+      this.billiardHistoryService.delete(item.id).subscribe({
         next: () => {
           this.getModelList();
           this.toast.success(this.translate.instant('common.delete.success'));

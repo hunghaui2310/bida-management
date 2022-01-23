@@ -18,6 +18,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxTrimDirectiveModule } from 'ngx-trim-directive';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { GlobalConfig, ToastrModule } from 'ngx-toastr';
+import { HistoryBilliardsListComponent } from './history-billiards-list/history-billiards-list.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   imports: [
@@ -33,6 +35,7 @@ import { GlobalConfig, ToastrModule } from 'ngx-toastr';
       newestOnTop: true,
       maxOpened: 1,
     } as Partial<GlobalConfig>),
+    ModalModule.forRoot(),
   ],
   declarations: [
     FindLanguageFromKeyPipe,
@@ -47,6 +50,7 @@ import { GlobalConfig, ToastrModule } from 'ngx-toastr';
     SortDirective,
     ItemCountComponent,
     StatusPipe,
+    HistoryBilliardsListComponent,
   ],
   exports: [
     SharedLibsModule,
@@ -54,6 +58,7 @@ import { GlobalConfig, ToastrModule } from 'ngx-toastr';
     NgSelectModule,
     SweetAlert2Module,
     ToastrModule,
+    ModalModule,
     NgxTrimDirectiveModule,
     FindLanguageFromKeyPipe,
     TranslateDirective,
@@ -67,6 +72,7 @@ import { GlobalConfig, ToastrModule } from 'ngx-toastr';
     SortDirective,
     ItemCountComponent,
     StatusPipe,
+    HistoryBilliardsListComponent,
   ],
 })
 export class SharedModule {}

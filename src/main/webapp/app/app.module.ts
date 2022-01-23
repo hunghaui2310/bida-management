@@ -37,6 +37,7 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { BilliardsModule } from './modules/billiards/billiards.module';
 import { DashboardComponent } from './layouts/dashboard/dashboard.component';
+import { DashboardBidaComponent } from './layouts/dashboard/dashboard-bida/dashboard-bida.component';
 
 @NgModule({
   imports: [
@@ -87,6 +88,7 @@ import { DashboardComponent } from './layouts/dashboard/dashboard.component';
     PageRibbonComponent,
     ActiveMenuDirective,
     DefaultLayoutComponent,
+    DashboardBidaComponent,
     DashboardComponent,
   ],
   bootstrap: [MainComponent],

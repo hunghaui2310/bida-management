@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-sm-6 col-lg-3" *ngFor="let item of dashboardBida">
+    <div class="card text-white bg-primary">
+      <div class="card-body pb-0">
+        <div class="btn-group float-right">
+          <div class="">
+            <button class="dropdown-item" (click)="addService()" jhiTranslate="billiards.dashboard.addService" [disabled]="!item.state">
+              Thêm dịch vụ
+            </button>
+            <button class="dropdown-item" (click)="printBill()" jhiTranslate="billiards.dashboard.printBill" [disabled]="!item.state">
+              In hóa đơn
+            </button>
+            <button class="dropdown-item" (click)="seeHistory(item)" jhiTranslate="billiards.dashboard.history">Xem lịch sử</button>
+          </div>
+        </div>
+        <div class="text-value">
+          <label class="switch switch-label switch-pill switch-success" (click)="switch(item)">
+            <input type="checkbox" class="switch-input" disabled [(ngModel)]="item.state" />
+            <span class="switch-slider" data-checked="Bật" data-unchecked="Tắt"></span>
+          </label>
+        </div>
+        <div>{{ item.name }}</div>
+        <span>{{ item.price | number }}</span>
+      </div>
+      <div class="chart-wrapper mt-3 mx-3" style="height: 30px">
+        <div *ngIf="item.state && item.historyBilliardLast">
+          Giờ vào: {{ item.historyBilliardLast.startTimeActive | date: 'dd/MM/yyyy HH:mm:ss' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

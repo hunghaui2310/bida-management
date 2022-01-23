@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
     RouterModule.forChild([
       {
         path: 'user-management',
-        loadChildren: () => import('./user-management/user-management.module').then(m => m.UserManagementModule),
+        loadChildren: () => import('../modules/employee/user-management.module').then(m => m.UserManagementModule),
         data: {
           pageTitle: 'userManagement.home.title',
         },

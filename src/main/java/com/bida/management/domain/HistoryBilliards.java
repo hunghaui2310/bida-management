@@ -1,5 +1,7 @@
 package com.bida.management.domain;
 
+import com.bida.management.security.SecurityUtils;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.*;
@@ -27,13 +29,26 @@ public class HistoryBilliards implements Serializable {
 
     @NotNull
     @Column(name = "end_time_active")
-    private Instant endTimeActive;
+    private Instant endTimeActive = Instant.now();
 
     @ManyToOne
     @JoinColumn(name = "billiards_id", nullable = false)
+    @JsonBackReference
     private Billiards billiards;
+
+    private transient Long billiardsId;
 
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
     private User user;
+
+    @PrePersist
+    public void prePersist() {
+        this.startTimeActive = Instant.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.endTimeActive = Instant.now();
+    }
 }

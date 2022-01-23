@@ -17,10 +17,10 @@ export function isArrayNullOrEmpty(arr: any[]): boolean {
   return !arr || arr.length === 0;
 }
 
-export function deleteConfig(translate: TranslateService): any {
+export function deleteConfig(translate: TranslateService, text?): any {
   return {
     title: translate.instant('common.note'),
-    text: translate.instant('common.deleteConfirm'),
+    text: text ? translate.instant(text) : translate.instant('common.deleteConfirm'),
     confirmButtonColor: '#f86c6b',
     showConfirmButton: true,
     showCancelButton: true,
