@@ -1,11 +1,19 @@
 {
   "product-history": {
-    "name": "Lịch sử sản phẩm",
-    "list": "Danh sách lịch sử sản phẩm",
+    "name": "Lịch sử nhập hàng",
+    "list": "Danh sách lịch sử nhập hàng",
     "table": {
       "no": "STT",
       "startTimeActive": "Thời gian bắt đầu",
       "endTimeActive": "Thời gian kết thúc"
+    },
+    "form": {
+      "formTitle": "Thêm/sửa lịch sử nhập hàng",
+      "productName": "Tên hàng hoá",
+      "quantity": "Số lượng",
+      "price": "Giá",
+      "status": "Trạng thái",
+      "provider": "Nhà cung cấp"
     }
   }
 }

@@ -1,0 +1,82 @@
+<form class="card" #f="ngForm" (ngSubmit)="onSubmit()" novalidate (keydown.enter)="$event.preventDefault()">
+  <div class="card-header">
+    <strong jhiTranslate="product-history.form.formTitle">Thêm/sửa lịch sử nhập hàng</strong>
+    <div class="pull-right d-flex">
+      <button type="submit" class="btn btn-square btn-primary"><span jhiTranslate="common.save"></span></button>
+      <a class="btn btn-secondary btn-square ml-1" routerLink="../list" jhiTranslate="common.back">Quay lại</a>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="form-group">
+      <label for="productName" jhiTranslate="product-history.form.productName">Tên hàng hoá</label>
+      <input type="text" class="form-control" id="productName" name="productName" [(ngModel)]="formModel.productName" trim="blur" />
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="price" jhiTranslate="product-history.form.price">Giá</label>
+          <input type="number" class="form-control" id="price" name="price" #price="ngModel" required [(ngModel)]="formModel.price" />
+          <div *ngIf="price.invalid && (price.dirty || price.touched || f.submitted)" class="msg-invalid mt-1">
+            <div *ngIf="price.errors.required">{{ 'validation.required' | translate }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="quantity" jhiTranslate="product-history.form.quantity">Số lượng</label>
+          <input
+            type="number"
+            class="form-control"
+            id="quantity"
+            name="quantity"
+            #quantity="ngModel"
+            required
+            [(ngModel)]="formModel.quantity"
+          />
+          <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched || f.submitted)" class="msg-invalid mt-1">
+            <div *ngIf="quantity.errors.required">{{ 'validation.required' | translate }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="provider" jhiTranslate="product-history.form.provider">Nhà cung cấp</label>
+      <ng-select
+        [(ngModel)]="formModel.provider"
+        [searchable]="false"
+        [clearable]="false"
+        [items]="providers"
+        id="provider"
+        bindLabel="name"
+        name="provider"
+        #provider="ngModel"
+        bindValue="id"
+        required
+      >
+      </ng-select>
+      <div *ngIf="provider.invalid && (provider.dirty || provider.touched || f.submitted)" class="msg-invalid mt-1">
+        <div *ngIf="provider.errors.required">{{ 'validation.required' | translate }}</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="status" jhiTranslate="product-history.form.status">Trạng thái</label>
+      <ng-select
+        [(ngModel)]="formModel.status"
+        [searchable]="false"
+        [clearable]="false"
+        [items]="statusOptions"
+        id="status"
+        bindLabel="text"
+        name="status"
+        #status="ngModel"
+        [disabled]="!id"
+        bindValue="value"
+        required
+      >
+      </ng-select>
+      <div *ngIf="status.invalid && (status.dirty || status.touched || f.submitted)" class="msg-invalid mt-1">
+        <div *ngIf="status.errors.required">{{ 'validation.required' | translate }}</div>
+      </div>
+    </div>
+  </div>
+</form>

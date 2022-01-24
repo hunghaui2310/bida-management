@@ -26,7 +26,7 @@ public class Provider implements Serializable {
     private String name;
 
     @Size(max = 50)
-    @Column(name = "phone_number", length = 50, nullable = false)
+    @Column(name = "phone_number", length = 50, nullable = false, unique = true)
     private String phoneNumber;
 
     @OneToMany(mappedBy = "provider")

@@ -11,7 +11,8 @@
     "form": {
       "formTitle": "Thêm/sửa bàn bida",
       "name": "Tên",
-      "price": "Giá"
+      "price": "Giá",
+      "status": "Trạng thái"
     },
     "dashboard": {
       "addService": "Thêm dịch vụ",

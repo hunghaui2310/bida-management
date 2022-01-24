@@ -50,6 +50,13 @@ export const navItems: MyNavData[] = [
     nameI18n: 'nav.product-history',
   },
   {
+    name: 'Provider',
+    url: '/provider/list',
+    icon: 'icon-notebook',
+    roles: [Authority.ADMIN, Authority.USER],
+    nameI18n: 'nav.product-history',
+  },
+  {
     divider: true,
   },
   {

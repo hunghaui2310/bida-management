@@ -4,15 +4,15 @@ import { PAGE_REGEX, STATUS_BASE } from '../../../constant/app.constant';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
-import { BilliardsService } from '../../../service/billiards.service';
 import { appendParamsToUrl, deleteConfig } from '../../../util/common.util';
 import swal from 'sweetalert2';
+import { ProviderService } from '../../../service/provider.service';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-history-list.component.html',
+  selector: 'app-provider',
+  templateUrl: './provider-list.component.html',
 })
-export class ProductHistoryListComponent implements OnInit {
+export class ProviderListComponent implements OnInit {
   modelList: any;
   pageSize = ITEMS_PER_PAGE;
   page = 1;
@@ -31,7 +31,7 @@ export class ProductHistoryListComponent implements OnInit {
     public route: Router,
     private toast: ToastrService,
     private translate: TranslateService,
-    private billiardService: BilliardsService
+    private providerService: ProviderService
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +40,7 @@ export class ProductHistoryListComponent implements OnInit {
 
   getModelList() {
     const filter = { ...this.filter, page: this.page - 1, size: this.pageSize };
-    this.billiardService.paging(filter).subscribe((res: any) => {
+    this.providerService.paging(filter).subscribe((res: any) => {
       if (!res || !res.body) {
         return;
       }
@@ -64,7 +64,7 @@ export class ProductHistoryListComponent implements OnInit {
     if (!item) {
       return;
     }
-    this.route.navigate(['product-history', item.id]);
+    this.route.navigate(['provider', item.id]);
   }
 
   delete(item) {
@@ -75,7 +75,7 @@ export class ProductHistoryListComponent implements OnInit {
       if (!result || !result.value) {
         return;
       }
-      this.billiardService.delete(item.id).subscribe({
+      this.providerService.delete(item.id).subscribe({
         next: () => {
           this.getModelList();
           this.toast.success(this.translate.instant('common.delete.success'));

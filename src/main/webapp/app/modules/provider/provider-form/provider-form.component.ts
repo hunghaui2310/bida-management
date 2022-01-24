@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { PHONE_REGEX, STATUS_BASE } from '../../../constant/app.constant';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BilliardsService } from '../../../service/billiards.service';
-import { STATUS_BASE } from '../../../constant/app.constant';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
+import { ProviderService } from '../../../service/provider.service';
 
 @Component({
-  selector: 'app-billiards-form',
-  templateUrl: './billiards-form.component.html',
+  selector: 'app-provider-form',
+  templateUrl: './provider-form.component.html',
 })
-export class BilliardsFormComponent implements OnInit {
+export class ProviderFormComponent implements OnInit {
   @ViewChild('f', { static: false }) f: NgForm;
   id;
   formModel: any = {
@@ -19,13 +19,14 @@ export class BilliardsFormComponent implements OnInit {
     status: 1,
   };
   statusOptions = STATUS_BASE;
+  phoneRegex = PHONE_REGEX;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private toast: ToastrService,
     private translate: TranslateService,
-    private billiardService: BilliardsService
+    private providerService: ProviderService
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +36,7 @@ export class BilliardsFormComponent implements OnInit {
 
   getModelForm() {
     if (this.id) {
-      this.billiardService.findById(this.id).subscribe(res => {
+      this.providerService.findById(this.id).subscribe(res => {
         this.formModel = res;
       });
     }
@@ -45,10 +46,10 @@ export class BilliardsFormComponent implements OnInit {
     if (this.f.invalid) {
       return;
     }
-    this.billiardService.save(this.formModel).subscribe(
+    this.providerService.save(this.formModel).subscribe(
       () => {
         this.toast.success(this.translate.instant('common.save.success'));
-        this.router.navigate(['/billiards/list']);
+        this.router.navigate(['/provider/list']);
       },
       () => {
         this.toast.error(this.translate.instant('common.save.error'));

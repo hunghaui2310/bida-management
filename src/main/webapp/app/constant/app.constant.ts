@@ -1,4 +1,5 @@
 export const PAGE_REGEX = /page=[0-9]*/;
+export const PHONE_REGEX = /^[0-9]*$/;
 export const STATUS_BASE = [
   {
     text: 'Tất cả',

@@ -1,6 +1,6 @@
 <form class="card" #f="ngForm" (ngSubmit)="onSubmit()" novalidate (keydown.enter)="$event.preventDefault()">
   <div class="card-header">
-    <strong jhiTranslate="billiards.form.formTitle">Thêm/sửa bàn bida</strong>
+    <strong jhiTranslate="provider.form.formTitle">Thêm/sửa nhà cung cấp</strong>
     <div class="pull-right d-flex">
       <button type="submit" class="btn btn-square btn-primary"><span jhiTranslate="common.save"></span></button>
       <a class="btn btn-secondary btn-square ml-1" routerLink="../list" jhiTranslate="common.back">Quay lại</a>
@@ -8,15 +8,41 @@
   </div>
   <div class="card-body">
     <div class="form-group">
-      <label for="name" jhiTranslate="billiards.form.name">Tên</label>
+      <label for="name" jhiTranslate="provider.form.name">Tên</label>
       <input type="text" class="form-control" id="name" name="name" [(ngModel)]="formModel.name" trim="blur" />
     </div>
     <div class="form-group">
-      <label for="price" jhiTranslate="billiards.form.price">Giá</label>
-      <input type="number" class="form-control" id="price" name="price" #price="ngModel" required [(ngModel)]="formModel.price" />
-      <div *ngIf="price.invalid && (price.dirty || price.touched || f.submitted)" class="msg-invalid mt-1">
-        <div *ngIf="price.errors.required">{{ 'validation.required' | translate }}</div>
+      <label for="price" jhiTranslate="provider.form.phoneNumber">Số điện thoại</label>
+      <input
+        type="text"
+        class="form-control"
+        id="price"
+        name="price"
+        #phoneNumber="ngModel"
+        required
+        [(ngModel)]="formModel.phoneNumber"
+        maxlength="20"
+        trim="blur"
+        [pattern]="phoneRegex"
+        autocomplete="off"
+      />
+      <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched || f.submitted)" class="msg-invalid mt-1">
+        <div *ngIf="phoneNumber.errors.required">{{ 'validation.required' | translate }}</div>
+        <div *ngIf="phoneNumber.errors.maxlength">{{ 'validation.tooLong' | translate }}</div>
+        <div *ngIf="phoneNumber.errors.conflict">{{ 'validation.duplicate' | translate }}</div>
       </div>
+    </div>
+    <div class="form-group">
+      <label for="note" jhiTranslate="provider.form.note">Ghi chú</label>
+      <textarea
+        rows="5"
+        class="form-control"
+        id="note"
+        name="note"
+        [(ngModel)]="formModel.note"
+        trim="blur"
+        placeholder="Thêm địa chỉ hoặc ghi chú(nếu có)"
+      ></textarea>
     </div>
     <div class="form-group">
       <label for="status" jhiTranslate="billiards.form.status">Trạng thái</label>

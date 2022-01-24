@@ -1,0 +1,20 @@
+{
+  "provider": {
+    "name": "Nhà cung cấp",
+    "list": "Danh sách nhà cung cấp",
+    "table": {
+      "no": "STT",
+      "name": "Tên",
+      "phoneNumber": "Số điện thoại",
+      "note": "Số điện thoại",
+      "status": "Trạng thái"
+    },
+    "form": {
+      "formTitle": "Thêm/sửa nhà cung cấp",
+      "name": "Tên",
+      "phoneNumber": "Số điện thoại",
+      "note": "Ghi chú",
+      "status": "Trạng thái"
+    }
+  }
+}
