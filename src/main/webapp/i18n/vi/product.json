@@ -1,0 +1,20 @@
+{
+  "product": {
+    "name": "Sản phẩm",
+    "list": "Danh sách sản phẩm",
+    "table": {
+      "no": "STT",
+      "name": "Tên sản phẩm",
+      "quantity": "Số lượng",
+      "price": "Giá",
+      "status": "Trạng thái"
+    },
+    "form": {
+      "formTitle": "Thêm/sửa sản phẩm",
+      "name": "Tên sản phẩm",
+      "quantity": "Số lượng",
+      "price": "Giá",
+      "status": "Trạng thái"
+    }
+  }
+}

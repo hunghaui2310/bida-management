@@ -79,6 +79,10 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
             loadChildren: () => import('./modules/customer/customer.module').then(m => m.CustomerModule),
           },
           {
+            path: 'product',
+            loadChildren: () => import('./modules/product/product.module').then(m => m.ProductModule),
+          },
+          {
             path: 'product-history',
             loadChildren: () => import('./modules/product-history/product-history.module').then(m => m.ProductHistoryModule),
           },

@@ -2,6 +2,7 @@ package com.bida.management.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,11 +25,11 @@ public class Product implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Size(max = 255)
-    @Column(name = "address")
-    private Integer address;
+    @NotNull
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 
-    @Size(max = 50)
-    @Column(name = "phone_number")
-    private String phoneNumber;
+    @NotNull
+    @Column(nullable = false)
+    private Double price;
 }

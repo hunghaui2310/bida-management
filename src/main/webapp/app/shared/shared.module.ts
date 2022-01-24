@@ -20,6 +20,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { GlobalConfig, ToastrModule } from 'ngx-toastr';
 import { HistoryBilliardsListComponent } from './history-billiards-list/history-billiards-list.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { LmToPipe } from './pipe/lmTo.pipe';
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ItemCountComponent,
     StatusPipe,
     HistoryBilliardsListComponent,
+    LmToPipe,
   ],
   exports: [
     SharedLibsModule,
@@ -73,6 +75,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ItemCountComponent,
     StatusPipe,
     HistoryBilliardsListComponent,
+    LmToPipe,
   ],
 })
 export class SharedModule {}

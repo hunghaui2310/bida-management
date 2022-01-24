@@ -1,0 +1,100 @@
+<div class="card">
+  <div class="card-header">
+    <span jhiTranslate="customer.list">Danh sách khách hàng</span>
+    <div class="pull-right">
+      <button type="button" class="btn btn-square btn-primary" routerLink="../new"><span jhiTranslate="common.create"></span></button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="bg-toolbar mb-4">
+      <div class="d-flex justify-content-start align-items-center">
+        <div class="row flex-grow-1 mr-4">
+          <div class="col-sm-6">
+            <div class="form-inline">
+              <label class="w-40" for="name" jhiTranslate="customer.table.name">Tên</label>
+              <input
+                type="text"
+                id="name"
+                class="form-control flex-grow-1"
+                [(ngModel)]="filter.name"
+                (keyup.enter)="search()"
+                trim="blur"
+                [trimOnWriteValue]="false"
+              />
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-inline">
+              <label class="w-40" for="statusFilter" jhiTranslate="customer.table.status">Trạng thái</label>
+              <ng-select
+                class="flex-grow-1"
+                [(ngModel)]="filter.status"
+                [searchable]="false"
+                [clearable]="false"
+                [items]="statusOptions"
+                id="statusFilter"
+                bindLabel="text"
+                bindValue="value"
+              >
+              </ng-select>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary pull-right" type="button" (click)="search()"><i class="fa fa-search"></i></button>
+      </div>
+    </div>
+    <table class="table my-table">
+      <thead>
+        <tr>
+          <th><span jhiTranslate="customer.table.name">Tên</span></th>
+          <th><span jhiTranslate="customer.table.phoneNumber">Số điện thoại</span></th>
+          <th><span jhiTranslate="customer.table.note">Ghi chú</span></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of modelList">
+          <td>{{ item.name }}</td>
+          <td>{{ item.phoneNumber }}</td>
+          <td>{{ item.note | lmTo }}</td>
+          <td>
+            <a (click)="edit(item)"><i class="fa fa-edit"></i></a>
+            <a (click)="delete(item)"><i class="fa fa-trash"></i></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!modelList || !modelList.length" class="nodata">{{ 'common.nodata' | translate }}</div>
+    <div class="card-footer">
+      <ng-container *ngIf="modelList && modelList.length > 0">
+        <div class="d-flex justify-content-between">
+          <span
+            [translate]="'pagination.summary'"
+            [translateParams]="{ from: (page - 1) * pageSize + 1, to: (page - 1) * pageSize + modelList.length, total: totalItems }"
+          ></span>
+          <div class="pagination-wrapper">
+            <div class="d-inline-block">
+              <pagination
+                [totalItems]="totalItems"
+                [(ngModel)]="page"
+                [maxSize]="3"
+                [itemsPerPage]="pageSize"
+                (pageChanged)="pageChanged()"
+                previousText="&lsaquo;"
+                nextText="&rsaquo;"
+                firstText="&laquo;"
+                lastText="&raquo;"
+                [boundaryLinks]="true"
+                [rotate]="false"
+                (numPages)="numPages = $event"
+              >
+              </pagination>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

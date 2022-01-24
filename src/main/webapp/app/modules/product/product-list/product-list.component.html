@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header">
-    <span jhiTranslate="provider.list">Danh sách nhà cung cấp</span>
+    <span jhiTranslate="product.list">Danh sách sản phẩm</span>
     <div class="pull-right">
       <button type="button" class="btn btn-square btn-primary" routerLink="../new"><span jhiTranslate="common.create"></span></button>
     </div>
@@ -11,7 +11,7 @@
         <div class="row flex-grow-1 mr-4">
           <div class="col-sm-6">
             <div class="form-inline">
-              <label class="w-40" for="name" jhiTranslate="billiards.table.name">Tên</label>
+              <label class="w-40" for="name" jhiTranslate="product.table.name">Tên sản phẩm</label>
               <input
                 type="text"
                 id="name"
@@ -48,18 +48,18 @@
     <table class="table my-table">
       <thead>
         <tr>
-          <th><span jhiTranslate="provider.table.name">Tên</span></th>
-          <th><span jhiTranslate="provider.table.phoneNumber">Số điện thoại</span></th>
-          <th><span jhiTranslate="provider.table.note">Ghi chú</span></th>
-          <th><span jhiTranslate="provider.table.status">Trạng thái</span></th>
+          <th><span jhiTranslate="product.table.name">Tên</span></th>
+          <th><span jhiTranslate="product.form.price">Giá</span></th>
+          <th><span jhiTranslate="product.form.quantity">Số lượng</span></th>
+          <th><span jhiTranslate="product.table.status">Trạng thái</span></th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of modelList">
           <td>{{ item.name }}</td>
-          <td>{{ item.phoneNumber }}</td>
-          <td>{{ item.note | lmTo }}</td>
+          <td>{{ item.price | number }}</td>
+          <td>{{ item.quantity | number }}</td>
           <td [innerHTML]="item.status | status"></td>
           <td>
             <a (click)="edit(item)"><i class="fa fa-edit"></i></a>
