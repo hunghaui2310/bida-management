@@ -1,19 +1,19 @@
 {
-  "product": {
+  "customer": {
     "name": "Khách hàng",
     "list": "Danh sách khách hàng",
     "table": {
       "no": "STT",
       "name": "Tên",
-      "quantity": "Số lượng",
-      "price": "Giá",
+      "phoneNumber": "Số điện thoại",
+      "note": "Lưu ý",
       "status": "Trạng thái"
     },
     "form": {
       "formTitle": "Thêm/sửa khách hàng",
       "name": "Tên",
-      "quantity": "Số lượng",
-      "price": "Giá",
+      "phoneNumber": "Số điện thoại",
+      "note": "Lưu ý",
       "status": "Trạng thái"
     }
   }

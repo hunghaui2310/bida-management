@@ -163,7 +163,9 @@
     "nodata": "Không có dữ liệu"
   },
   "validation": {
-    "required": "Không được để trống"
+    "required": "Không được để trống",
+    "duplicate": "Đã tồn tại",
+    "tooLong": "Thông tin quá dài"
   },
   "nav": {
     "dashboard": "Bảng điều khiển",
@@ -171,6 +173,7 @@
     "billiards-history": "Lịch sử bàn bida",
     "employee": "Nhân viên",
     "customer": "Khách hàng",
-    "product-history": "Lịch sử sản phẩm"
+    "product-history": "Lịch sử sản phẩm",
+    "provider": "Nhà cung cấp"
   }
 }

@@ -21,8 +21,9 @@ export class ProviderListComponent implements OnInit {
   location: Location;
   statusOptions = STATUS_BASE;
   filter = {
-    status: this.statusOptions[0].value,
     name: '',
+    phoneNumber: '',
+    address: '',
   };
 
   constructor(
@@ -81,7 +82,7 @@ export class ProviderListComponent implements OnInit {
           this.toast.success(this.translate.instant('common.delete.success'));
         },
         error: () => {
-          this.toast.error(this.translate.instant('common.delete.success'));
+          this.toast.error(this.translate.instant('common.delete.error'));
         },
       });
     });

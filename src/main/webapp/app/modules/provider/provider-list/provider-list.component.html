@@ -24,20 +24,33 @@
             </div>
           </div>
 
-          <div class="col-sm-6">
+          <div class="col-sm-6 mt-2">
             <div class="form-inline">
-              <label class="w-40" for="statusFilter" jhiTranslate="billiards.table.status">Trạng thái</label>
-              <ng-select
-                class="flex-grow-1"
-                [(ngModel)]="filter.status"
-                [searchable]="false"
-                [clearable]="false"
-                [items]="statusOptions"
-                id="statusFilter"
-                bindLabel="text"
-                bindValue="value"
-              >
-              </ng-select>
+              <label class="w-40" for="phoneNumber" jhiTranslate="provider.table.phoneNumber">Số điện thoại</label>
+              <input
+                type="text"
+                id="phoneNumber"
+                class="form-control flex-grow-1"
+                [(ngModel)]="filter.phoneNumber"
+                (keyup.enter)="search()"
+                trim="blur"
+                [trimOnWriteValue]="false"
+              />
+            </div>
+          </div>
+
+          <div class="col-sm-6 mt-2">
+            <div class="form-inline">
+              <label class="w-40" for="address" jhiTranslate="provider.table.address">Địa chỉ</label>
+              <input
+                type="text"
+                id="address"
+                class="form-control flex-grow-1"
+                [(ngModel)]="filter.address"
+                (keyup.enter)="search()"
+                trim="blur"
+                [trimOnWriteValue]="false"
+              />
             </div>
           </div>
         </div>
@@ -50,8 +63,8 @@
         <tr>
           <th><span jhiTranslate="provider.table.name">Tên</span></th>
           <th><span jhiTranslate="provider.table.phoneNumber">Số điện thoại</span></th>
+          <th><span jhiTranslate="provider.table.address">Địa chỉ</span></th>
           <th><span jhiTranslate="provider.table.note">Ghi chú</span></th>
-          <th><span jhiTranslate="provider.table.status">Trạng thái</span></th>
           <th></th>
         </tr>
       </thead>
@@ -59,8 +72,8 @@
         <tr *ngFor="let item of modelList">
           <td>{{ item.name }}</td>
           <td>{{ item.phoneNumber }}</td>
+          <td>{{ item.address }}</td>
           <td>{{ item.note | lmTo }}</td>
-          <td [innerHTML]="item.status | status"></td>
           <td>
             <a (click)="edit(item)"><i class="fa fa-edit"></i></a>
             <a (click)="delete(item)"><i class="fa fa-trash"></i></a>

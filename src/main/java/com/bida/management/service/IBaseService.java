@@ -1,5 +1,6 @@
 package com.bida.management.service;
 
+import com.bida.management.web.rest.errors.DuplicateExceptionHandle;
 import io.undertow.util.BadRequestException;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -10,7 +11,7 @@ public interface IBaseService<T, ID> {
 
     Optional<T> findById(ID id);
 
-    T save(T t) throws BadRequestException;
+    T save(T t) throws BadRequestException, DuplicateExceptionHandle;
 
     void remove(ID id);
 }

@@ -15,6 +15,7 @@ public final class Constants {
         final Integer ACTIVE = 1;
         final Integer NONACTIVE = 0;
         final Integer ALL = -1;
+        final Integer DELETED = -10;
     }
 
     private Constants() {}

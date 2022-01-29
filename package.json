@@ -97,6 +97,7 @@
     "bootstrap": "4.6.0",
     "dayjs": "1.10.7",
     "font-awesome": "^4.7.0",
+    "jquery": "^3.6.0",
     "lodash": "^4.17.21",
     "ngx-bootstrap": "^6.2.0",
     "ngx-infinite-scroll": "10.0.1",

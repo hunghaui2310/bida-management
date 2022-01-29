@@ -52,9 +52,9 @@ export const navItems: MyNavData[] = [
   {
     name: 'Provider',
     url: '/provider/list',
-    icon: 'icon-notebook',
+    icon: 'icon-info',
     roles: [Authority.ADMIN, Authority.USER],
-    nameI18n: 'nav.product-history',
+    nameI18n: 'nav.provider',
   },
   {
     divider: true,

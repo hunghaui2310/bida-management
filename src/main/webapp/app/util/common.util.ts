@@ -1,4 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
+import * as $ from 'jquery';
+import { NgForm } from '@angular/forms';
 
 export function appendParamsToUrl(query: string, regex: any, location: any) {
   const url = location.path();
@@ -27,4 +29,22 @@ export function deleteConfig(translate: TranslateService, text?): any {
     confirmButtonText: translate.instant('common.ok'),
     cancelButtonText: translate.instant('common.cancel'),
   };
+}
+
+export function focusByName(field: string) {
+  const element = $('[name=' + field + ']');
+  if (element && element[0]) {
+    element.focus();
+  }
+}
+
+export function focusDuplicatedFields(field, ngForm: NgForm) {
+  if (!field) {
+    return;
+  }
+  if (!ngForm.form.controls[field]) {
+    return;
+  }
+  ngForm.form.controls[field].setErrors({ conflict: true });
+  focusByName(field);
 }

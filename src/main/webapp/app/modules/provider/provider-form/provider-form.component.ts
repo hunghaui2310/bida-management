@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import { ProviderService } from '../../../service/provider.service';
+import { focusDuplicatedFields } from '../../../util/common.util';
 
 @Component({
   selector: 'app-provider-form',
@@ -51,7 +52,11 @@ export class ProviderFormComponent implements OnInit {
         this.toast.success(this.translate.instant('common.save.success'));
         this.router.navigate(['/provider/list']);
       },
-      () => {
+      error => {
+        if (error.status == 409) {
+          focusDuplicatedFields(error.error.field, this.f);
+          return;
+        }
         this.toast.error(this.translate.instant('common.save.error'));
       }
     );

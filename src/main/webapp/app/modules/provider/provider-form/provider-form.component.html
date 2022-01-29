@@ -12,12 +12,12 @@
       <input type="text" class="form-control" id="name" name="name" [(ngModel)]="formModel.name" trim="blur" />
     </div>
     <div class="form-group">
-      <label for="price" jhiTranslate="provider.form.phoneNumber">Số điện thoại</label>
+      <label for="phoneNumber" jhiTranslate="provider.form.phoneNumber">Số điện thoại</label>
       <input
         type="text"
         class="form-control"
-        id="price"
-        name="price"
+        id="phoneNumber"
+        name="phoneNumber"
         #phoneNumber="ngModel"
         required
         [(ngModel)]="formModel.phoneNumber"
@@ -33,6 +33,10 @@
       </div>
     </div>
     <div class="form-group">
+      <label for="address" jhiTranslate="provider.form.address">Số điện thoại</label>
+      <input type="text" class="form-control" id="address" name="address" [(ngModel)]="formModel.address" maxlength="255" trim="blur" />
+    </div>
+    <div class="form-group">
       <label for="note" jhiTranslate="provider.form.note">Ghi chú</label>
       <textarea
         rows="5"
@@ -43,26 +47,6 @@
         trim="blur"
         placeholder="Thêm địa chỉ hoặc ghi chú(nếu có)"
       ></textarea>
-    </div>
-    <div class="form-group">
-      <label for="status" jhiTranslate="billiards.form.status">Trạng thái</label>
-      <ng-select
-        [(ngModel)]="formModel.status"
-        [searchable]="false"
-        [clearable]="false"
-        [items]="statusOptions"
-        id="status"
-        bindLabel="text"
-        name="status"
-        #status="ngModel"
-        [disabled]="!id"
-        bindValue="value"
-        required
-      >
-      </ng-select>
-      <div *ngIf="status.invalid && (status.dirty || status.touched || f.submitted)" class="msg-invalid mt-1">
-        <div *ngIf="status.errors.required">{{ 'validation.required' | translate }}</div>
-      </div>
     </div>
   </div>
 </form>
