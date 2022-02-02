@@ -74,6 +74,21 @@ public class ProviderResource {
     }
 
     /**
+     * {@code GET /provider} : get all provider
+     *
+     * @param name name of provider to search
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all provider.
+     */
+    @GetMapping("/getAll")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.USER + "\")")
+    public ResponseEntity<List<Provider>> getAllProviders(@RequestParam(defaultValue = "", required = false) String name) {
+        log.debug("REST request to get all Provider");
+
+        final List<Provider> page = providerService.findAllProviderActive(name);
+        return ResponseEntity.status(HttpStatus.OK).body(page);
+    }
+
+    /**
      * {@code GET /provider/id} : get provider details by id
      *
      * @param id id of provider

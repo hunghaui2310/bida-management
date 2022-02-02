@@ -62,6 +62,7 @@ export class DefaultLayoutComponent implements OnInit {
 
   getCurrentUser() {
     this.principal.getCurrentUser().subscribe((res: any) => {
+      this.account = res;
       this.buildSideBarByRole(res.authorities);
     });
   }

@@ -43,7 +43,15 @@ public class HistoryProduct implements Serializable {
     @JoinColumn(name = "employee_id", nullable = false)
     private User user;
 
+    private transient Long employeeId;
+
     @ManyToOne
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
+
+    private transient Long providerId;
+
+    @NotNull
+    @Column(name = "status", nullable = false)
+    private int status;
 }

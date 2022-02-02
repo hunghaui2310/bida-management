@@ -4,9 +4,13 @@ import { PAGE_REGEX, STATUS_BASE } from '../../../constant/app.constant';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
-import { BilliardsService } from '../../../service/billiards.service';
 import { appendParamsToUrl, deleteConfig } from '../../../util/common.util';
 import swal from 'sweetalert2';
+import { ProductHistoryService } from '../../../service/product-history.service';
+import { concat, Observable, of, Subject } from 'rxjs';
+import { catchError, distinctUntilChanged, map, startWith, switchMap, tap } from 'rxjs/operators';
+import { ProviderService } from '../../../service/provider.service';
+import { UserManagementService } from '../../employee/service/user-management.service';
 
 @Component({
   selector: 'app-product-list',
@@ -21,9 +25,16 @@ export class ProductHistoryListComponent implements OnInit {
   location: Location;
   statusOptions = STATUS_BASE;
   filter = {
-    status: this.statusOptions[0].value,
-    name: '',
+    providerId: null,
+    productName: '',
+    employeeId: null,
   };
+  providers$: Observable<any>;
+  loadingProvider = false;
+  providerInput$ = new Subject<string>();
+  employees$: Observable<any>;
+  loadingEmployee = false;
+  employeeInput$ = new Subject<string>();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -31,16 +42,20 @@ export class ProductHistoryListComponent implements OnInit {
     public route: Router,
     private toast: ToastrService,
     private translate: TranslateService,
-    private billiardService: BilliardsService
+    private providerService: ProviderService,
+    private productHistoryService: ProductHistoryService,
+    private employeeService: UserManagementService
   ) {}
 
   ngOnInit(): void {
     this.getModelList();
+    this.loadGroup();
+    this.loadEmployee();
   }
 
   getModelList() {
-    const filter = { ...this.filter, page: this.page - 1, size: this.pageSize };
-    this.billiardService.paging(filter).subscribe((res: any) => {
+    const param = { page: this.page - 1, size: this.pageSize };
+    this.productHistoryService.search(this.filter, param).subscribe((res: any) => {
       if (!res || !res.body) {
         return;
       }
@@ -48,6 +63,42 @@ export class ProductHistoryListComponent implements OnInit {
       this.totalItems = res.body.totalElements;
       this.numPages = res.body.totalPages;
     });
+  }
+
+  loadGroup() {
+    this.providers$ = concat(
+      of([]),
+      this.providerInput$.pipe(
+        startWith(''),
+        distinctUntilChanged(),
+        tap(() => (this.loadingProvider = true)),
+        switchMap(term =>
+          this.providerService.getAll({ name: term }).pipe(
+            map(res => res.body),
+            catchError(() => of([])),
+            tap(() => (this.loadingProvider = false))
+          )
+        )
+      )
+    );
+  }
+
+  loadEmployee() {
+    this.employees$ = concat(
+      of([]),
+      this.employeeInput$.pipe(
+        startWith(''),
+        distinctUntilChanged(),
+        tap(() => (this.loadingEmployee = true)),
+        switchMap(term =>
+          this.employeeService.getAll({ login: term }).pipe(
+            map(res => res.body),
+            catchError(() => of([])),
+            tap(() => (this.loadingEmployee = false))
+          )
+        )
+      )
+    );
   }
 
   pageChanged() {
@@ -75,7 +126,7 @@ export class ProductHistoryListComponent implements OnInit {
       if (!result || !result.value) {
         return;
       }
-      this.billiardService.delete(item.id).subscribe({
+      this.productHistoryService.delete(item.id).subscribe({
         next: () => {
           this.getModelList();
           this.toast.success(this.translate.instant('common.delete.success'));

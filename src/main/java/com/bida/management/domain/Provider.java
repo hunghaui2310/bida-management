@@ -1,6 +1,7 @@
 package com.bida.management.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,6 +9,7 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.commons.lang3.StringUtils;
 
 @Entity
 @Table(name = "tbl_provider")
@@ -43,4 +45,14 @@ public class Provider implements Serializable {
 
     @OneToMany(mappedBy = "provider")
     private Set<HistoryProduct> historyProducts;
+
+    private transient String description;
+
+    @PostLoad
+    public void onLoad() {
+        this.description = this.name;
+        if (StringUtils.isNotBlank(this.note) && Objects.nonNull(this.note)) {
+            this.description += "(" + this.note + ")";
+        }
+    }
 }

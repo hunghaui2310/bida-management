@@ -168,10 +168,23 @@ public class UserResource {
         if (!onlyContainsAllowedProperties(pageable)) {
             return ResponseEntity.badRequest().build();
         }
-
         final Page<AdminUserDTO> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * {@code GET /admin/users} : get all users with search login(optional).
+     *
+     * @param login: login of user to search
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
+     */
+    @GetMapping("/users/getAll")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
+    public ResponseEntity<List<AdminUserDTO>> getAllUsersByLogin(@RequestParam(value = "", required = false) String login) {
+        log.debug("REST request to get all User for an admin");
+        final List<AdminUserDTO> page = userService.getAllByLogin(login);
+        return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
     private boolean onlyContainsAllowedProperties(Pageable pageable) {

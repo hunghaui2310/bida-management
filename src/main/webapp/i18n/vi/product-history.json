@@ -3,9 +3,7 @@
     "name": "Lịch sử nhập hàng",
     "list": "Danh sách lịch sử nhập hàng",
     "table": {
-      "no": "STT",
-      "startTimeActive": "Thời gian bắt đầu",
-      "endTimeActive": "Thời gian kết thúc"
+      "no": "STT"
     },
     "form": {
       "formTitle": "Thêm/sửa lịch sử nhập hàng",
@@ -13,7 +11,9 @@
       "quantity": "Số lượng",
       "price": "Giá",
       "status": "Trạng thái",
-      "provider": "Nhà cung cấp"
+      "provider": "Nhà cung cấp",
+      "creator": "Người tạo",
+      "createdDate": "Ngày tạo"
     }
   }
 }

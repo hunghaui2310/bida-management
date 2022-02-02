@@ -9,6 +9,7 @@ import com.bida.management.security.AuthoritiesConstants;
 import com.bida.management.security.SecurityUtils;
 import com.bida.management.service.dto.AdminUserDTO;
 import com.bida.management.service.dto.UserDTO;
+import com.bida.management.service.mapper.UserMapper;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -41,16 +42,20 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
+    private final UserMapper userMapper;
+
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
-        CacheManager cacheManager
+        CacheManager cacheManager,
+        UserMapper userMapper
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.userMapper = userMapper;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -139,7 +144,7 @@ public class UserService {
         if (existingUser.isActivated()) {
             return false;
         }
-        userRepository.delete(existingUser);
+        userRepository.updateStatus(Constants.STATUS.DELETED, existingUser.getLogin());
         userRepository.flush();
         this.clearUserCaches(existingUser);
         return true;
@@ -218,11 +223,12 @@ public class UserService {
             .map(AdminUserDTO::new);
     }
 
+    @Transactional
     public void deleteUser(String login) {
         userRepository
             .findOneByLogin(login)
             .ifPresent(user -> {
-                userRepository.delete(user);
+                userRepository.updateStatus(Constants.STATUS.DELETED, login);
                 this.clearUserCaches(user);
                 log.debug("Deleted User: {}", user);
             });
@@ -274,6 +280,13 @@ public class UserService {
     @Transactional(readOnly = true)
     public Page<AdminUserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAll(pageable).map(AdminUserDTO::new);
+    }
+
+    @Transactional(readOnly = true)
+    public List<AdminUserDTO> getAllByLogin(String login) {
+        return userMapper.usersToAdminUserDTOs(
+            userRepository.findAllByLoginContainingIgnoreCaseAndStatusNot(login, Constants.STATUS.DELETED)
+        );
     }
 
     @Transactional(readOnly = true)

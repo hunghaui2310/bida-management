@@ -30,6 +30,11 @@ export class UserManagementService {
     return this.http.get<IUser[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
+  getAll(req?): Observable<HttpResponse<IUser[]>> {
+    const options = createRequestOption(req);
+    return this.http.get<IUser[]>(this.resourceUrl + '/getAll', { params: options, observe: 'response' });
+  }
+
   delete(login: string): Observable<{}> {
     return this.http.delete(`${this.resourceUrl}/${login}`);
   }

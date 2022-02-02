@@ -12,9 +12,9 @@ export class ProductHistoryService {
 
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
-  paging(req?): Observable<HttpResponse<any>> {
+  search(filter, req?): Observable<HttpResponse<any>> {
     const options = createRequestOption(req);
-    return this.http.get<any>(this.resourceUrl, { params: options, observe: 'response' });
+    return this.http.post<any>(this.resourceUrl, filter, { params: options, observe: 'response' });
   }
 
   getAll(): Observable<HttpResponse<any>> {

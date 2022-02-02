@@ -61,6 +61,9 @@
         </a>
       </div>
     </li>
+    <li class="nav-item d-md-down-none">
+      <span *ngIf="account">{{ account.login }}</span>
+    </li>
   </ul>
 </app-header>
 <div class="app-body">
@@ -78,4 +81,3 @@
 <app-footer>
   <span class="ml-auto">Powered by Bida Management</span>
 </app-footer>
-<ngx-loading-bar></ngx-loading-bar>

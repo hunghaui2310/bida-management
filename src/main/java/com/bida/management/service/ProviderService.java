@@ -5,6 +5,7 @@ import com.bida.management.domain.Provider;
 import com.bida.management.repository.IProviderRepository;
 import com.bida.management.web.rest.errors.DuplicateExceptionHandle;
 import io.undertow.util.BadRequestException;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -34,6 +35,10 @@ public class ProviderService implements IBaseService<Provider, Long> {
             address,
             Constants.STATUS.DELETED
         );
+    }
+
+    public List<Provider> findAllProviderActive(String name) {
+        return providerRepository.findAllByNameContainingIgnoreCaseAndStatusNot(name, Constants.STATUS.DELETED);
     }
 
     @Override

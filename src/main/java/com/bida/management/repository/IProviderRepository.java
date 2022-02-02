@@ -1,6 +1,7 @@
 package com.bida.management.repository;
 
 import com.bida.management.domain.Provider;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
@@ -18,4 +19,6 @@ public interface IProviderRepository extends PagingAndSortingRepository<Provider
         String address,
         Integer status
     );
+
+    List<Provider> findAllByNameContainingIgnoreCaseAndStatusNot(String name, Integer status);
 }

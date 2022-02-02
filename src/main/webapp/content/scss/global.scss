@@ -233,6 +233,7 @@ h6 {
   th {
     text-align: left;
     border-bottom: 0;
+    background-color: #45a9f41a;
   }
 
   th:not(.col-check) {
@@ -258,4 +259,7 @@ h6 {
   font-style: italic;
   align-self: center;
   padding: 5px;
+}
+.disabled {
+  background-color: #e9ecef;
 }
