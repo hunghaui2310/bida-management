@@ -1,6 +1,5 @@
 package com.bida.management.domain;
 
-import com.bida.management.security.SecurityUtils;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.Instant;

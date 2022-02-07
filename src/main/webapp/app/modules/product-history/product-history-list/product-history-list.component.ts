@@ -132,7 +132,7 @@ export class ProductHistoryListComponent implements OnInit {
           this.toast.success(this.translate.instant('common.delete.success'));
         },
         error: () => {
-          this.toast.error(this.translate.instant('common.delete.success'));
+          this.toast.error(this.translate.instant('common.delete.error'));
         },
       });
     });

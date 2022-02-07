@@ -60,10 +60,11 @@ export const navItems: MyNavData[] = [
     divider: true,
   },
   {
-    name: 'Admin',
+    name: 'System',
     url: '/admin',
     icon: 'icon-user',
     roles: [Authority.ADMIN, Authority.USER],
+    nameI18n: 'nav.system',
     children: [
       {
         name: 'Metrics',

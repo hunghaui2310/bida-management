@@ -8,60 +8,57 @@
   </div>
   <div class="card-body">
     <div class="form-group">
-      <label for="name" jhiTranslate="billiards.form.name">Tên</label>
+      <label for="name" jhiTranslate="customer.form.name">Tên</label>
       <input type="text" class="form-control" id="name" name="name" [(ngModel)]="formModel.name" trim="blur" />
     </div>
-    <div class="form-group">
-      <label for="price" jhiTranslate="provider.form.phoneNumber">Số điện thoại</label>
-      <input
-        type="text"
-        class="form-control"
-        id="price"
-        name="price"
-        #phoneNumber="ngModel"
-        required
-        [(ngModel)]="formModel.phoneNumber"
-        maxlength="20"
-        trim="blur"
-        [pattern]="phoneRegex"
-        autocomplete="off"
-      />
-      <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched || f.submitted)" class="msg-invalid mt-1">
-        <div *ngIf="phoneNumber.errors.required">{{ 'validation.required' | translate }}</div>
-        <div *ngIf="phoneNumber.errors.maxlength">{{ 'validation.tooLong' | translate }}</div>
-        <div *ngIf="phoneNumber.errors.conflict">{{ 'validation.duplicate' | translate }}</div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="phoneNumber" jhiTranslate="customer.form.phoneNumber">Số điện thoại</label>
+          <input
+            type="text"
+            class="form-control"
+            id="phoneNumber"
+            name="phoneNumber"
+            #phoneNumber="ngModel"
+            required
+            [(ngModel)]="formModel.phoneNumber"
+            maxlength="20"
+            trim="blur"
+            [pattern]="phoneRegex"
+            autocomplete="off"
+          />
+          <div *ngIf="phoneNumber.invalid && (phoneNumber.dirty || phoneNumber.touched || f.submitted)" class="msg-invalid mt-1">
+            <div *ngIf="phoneNumber.errors.required">{{ 'validation.required' | translate }}</div>
+            <div *ngIf="phoneNumber.errors.maxlength">{{ 'validation.tooLong' | translate }}</div>
+            <div *ngIf="phoneNumber.errors.conflict">{{ 'validation.duplicate' | translate }}</div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="note" jhiTranslate="provider.form.note">Ghi chú</label>
-      <textarea
-        rows="5"
-        class="form-control"
-        id="note"
-        name="note"
-        [(ngModel)]="formModel.note"
-        trim="blur"
-        placeholder="Thêm địa chỉ hoặc ghi chú(nếu có)"
-      ></textarea>
-    </div>
-    <div class="form-group">
-      <label for="status" jhiTranslate="billiards.form.status">Trạng thái</label>
-      <ng-select
-        [(ngModel)]="formModel.status"
-        [searchable]="false"
-        [clearable]="false"
-        [items]="statusOptions"
-        id="status"
-        bindLabel="text"
-        name="status"
-        #status="ngModel"
-        [disabled]="!id"
-        bindValue="value"
-        required
-      >
-      </ng-select>
-      <div *ngIf="status.invalid && (status.dirty || status.touched || f.submitted)" class="msg-invalid mt-1">
-        <div *ngIf="status.errors.required">{{ 'validation.required' | translate }}</div>
+      <div class="col">
+        <div class="form-group">
+          <label for="dateOfBirth" jhiTranslate="customer.form.dateOfBirth">Ngày sinh</label>
+          <div class="input-group">
+            <input
+              [owlDateTime]="dateOfBirth"
+              [owlDateTimeTrigger]="dateOfBirth"
+              name="dateOfBirth"
+              class="form-control"
+              id="dateOfBirth"
+              [(ngModel)]="formModel.dateOfBirth"
+              aria-describedby="dateOfBirth-addon"
+            />
+            <div class="btn-clear-input" *ngIf="formModel.dateOfBirth">
+              <i class="fa fa-times"></i>
+            </div>
+            <div class="input-group-append">
+              <span class="input-group-text cursor-pointer" id="dateOfBirth-addon"
+                ><span class="trigger" [owlDateTimeTrigger]="dateOfBirth"> <i class="fa fa-calendar"></i> </span
+              ></span>
+            </div>
+          </div>
+          <owl-date-time #dateOfBirth></owl-date-time>
+        </div>
       </div>
     </div>
   </div>

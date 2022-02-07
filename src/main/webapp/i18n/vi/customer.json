@@ -6,14 +6,14 @@
       "no": "STT",
       "name": "Tên",
       "phoneNumber": "Số điện thoại",
-      "note": "Lưu ý",
+      "dateOfBirth": "Ngày sinh",
       "status": "Trạng thái"
     },
     "form": {
       "formTitle": "Thêm/sửa khách hàng",
       "name": "Tên",
       "phoneNumber": "Số điện thoại",
-      "note": "Lưu ý",
+      "dateOfBirth": "Ngày sinh",
       "status": "Trạng thái"
     }
   }

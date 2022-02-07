@@ -1,6 +1,7 @@
 package com.bida.management.domain;
 
 import java.io.Serializable;
+import java.time.Instant;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,4 +29,11 @@ public class Customer implements Serializable {
     @Size(max = 50)
     @Column(name = "phone_number", length = 50, nullable = false)
     private String phoneNumber;
+
+    @Column(name = "date_of_birth")
+    private Instant dateOfBirth;
+
+    @NotNull
+    @Column(name = "status", nullable = false)
+    private int status;
 }

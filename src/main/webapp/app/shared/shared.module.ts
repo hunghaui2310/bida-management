@@ -21,6 +21,7 @@ import { GlobalConfig, ToastrModule } from 'ngx-toastr';
 import { HistoryBilliardsListComponent } from './history-billiards-list/history-billiards-list.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { LmToPipe } from './pipe/lmTo.pipe';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 @NgModule({
   imports: [
@@ -37,6 +38,8 @@ import { LmToPipe } from './pipe/lmTo.pipe';
       maxOpened: 1,
     } as Partial<GlobalConfig>),
     ModalModule.forRoot(),
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   declarations: [
     FindLanguageFromKeyPipe,
@@ -76,6 +79,8 @@ import { LmToPipe } from './pipe/lmTo.pipe';
     StatusPipe,
     HistoryBilliardsListComponent,
     LmToPipe,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
 })
 export class SharedModule {}

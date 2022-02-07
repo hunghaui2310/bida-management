@@ -4,9 +4,9 @@ import { PAGE_REGEX, STATUS_BASE } from '../../../constant/app.constant';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
-import { ProviderService } from '../../../service/provider.service';
 import { appendParamsToUrl, deleteConfig } from '../../../util/common.util';
 import swal from 'sweetalert2';
+import { CustomerService } from '../../../service/customer.service';
 
 @Component({
   selector: 'app-employee',
@@ -21,7 +21,7 @@ export class CustomerListComponent implements OnInit {
   location: Location;
   statusOptions = STATUS_BASE;
   filter = {
-    status: this.statusOptions[0].value,
+    phoneNumber: '',
     name: '',
   };
 
@@ -31,7 +31,7 @@ export class CustomerListComponent implements OnInit {
     public route: Router,
     private toast: ToastrService,
     private translate: TranslateService,
-    private providerService: ProviderService
+    private customerService: CustomerService
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +40,7 @@ export class CustomerListComponent implements OnInit {
 
   getModelList() {
     const filter = { ...this.filter, page: this.page - 1, size: this.pageSize };
-    this.providerService.paging(filter).subscribe((res: any) => {
+    this.customerService.paging(filter).subscribe((res: any) => {
       if (!res || !res.body) {
         return;
       }
@@ -75,13 +75,13 @@ export class CustomerListComponent implements OnInit {
       if (!result || !result.value) {
         return;
       }
-      this.providerService.delete(item.id).subscribe({
+      this.customerService.delete(item.id).subscribe({
         next: () => {
           this.getModelList();
           this.toast.success(this.translate.instant('common.delete.success'));
         },
         error: () => {
-          this.toast.error(this.translate.instant('common.delete.success'));
+          this.toast.error(this.translate.instant('common.delete.error'));
         },
       });
     });

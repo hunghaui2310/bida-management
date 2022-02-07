@@ -15,8 +15,8 @@ export class CustomerFormComponent implements OnInit {
   id;
   formModel: any = {
     name: null,
-    price: null,
-    status: 1,
+    phoneNumber: null,
+    dateOfBirth: null,
   };
   statusOptions = STATUS_BASE;
   phoneRegex = PHONE_REGEX;
