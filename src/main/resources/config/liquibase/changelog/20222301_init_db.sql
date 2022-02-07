@@ -1,173 +1,198 @@
-create table if not exists DATABASECHANGELOG
-(
-    ID            varchar(255) not null,
-    AUTHOR        varchar(255) not null,
-    FILENAME      varchar(255) not null,
-    DATEEXECUTED  datetime     not null,
-    ORDEREXECUTED int          not null,
-    EXECTYPE      varchar(10)  not null,
-    MD5SUM        varchar(35)  null,
-    DESCRIPTION   varchar(255) null,
-    COMMENTS      varchar(255) null,
-    TAG           varchar(255) null,
-    LIQUIBASE     varchar(20)  null,
-    CONTEXTS      varchar(255) null,
-    LABELS        varchar(255) null,
-    DEPLOYMENT_ID varchar(10)  null
-);
+-- bida_management.DATABASECHANGELOG definition
 
-create table if not exists DATABASECHANGELOGLOCK
-(
-    ID          int          not null
-        primary key,
-    LOCKED      bit          not null,
-    LOCKGRANTED datetime     null,
-    LOCKEDBY    varchar(255) null
-);
+CREATE TABLE `DATABASECHANGELOG` (
+  `ID` varchar(255) NOT NULL,
+  `AUTHOR` varchar(255) NOT NULL,
+  `FILENAME` varchar(255) NOT NULL,
+  `DATEEXECUTED` datetime NOT NULL,
+  `ORDEREXECUTED` int NOT NULL,
+  `EXECTYPE` varchar(10) NOT NULL,
+  `MD5SUM` varchar(35) DEFAULT NULL,
+  `DESCRIPTION` varchar(255) DEFAULT NULL,
+  `COMMENTS` varchar(255) DEFAULT NULL,
+  `TAG` varchar(255) DEFAULT NULL,
+  `LIQUIBASE` varchar(20) DEFAULT NULL,
+  `CONTEXTS` varchar(255) DEFAULT NULL,
+  `LABELS` varchar(255) DEFAULT NULL,
+  `DEPLOYMENT_ID` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-create table if not exists tbl_authority
-(
-    name varchar(50) not null
-        primary key
-);
 
-create table if not exists tbl_billiards
-(
-    id     bigint auto_increment
-        primary key,
-    name   varchar(25)      null,
-    status int default 1    not null,
-    price  double           not null,
-    state  bit default b'0' not null
-);
+-- bida_management.DATABASECHANGELOGLOCK definition
 
-create table if not exists tbl_customer
-(
-    id           bigint auto_increment
-        primary key,
-    name         varchar(100) null,
-    phone_number varchar(50)  not null,
-    constraint tbl_customer_phone_number_uindex
-        unique (phone_number)
-);
+CREATE TABLE `DATABASECHANGELOGLOCK` (
+  `ID` int NOT NULL,
+  `LOCKED` bit(1) NOT NULL,
+  `LOCKGRANTED` datetime DEFAULT NULL,
+  `LOCKEDBY` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-create table if not exists tbl_employee
-(
-    id                   bigint auto_increment
-        primary key,
-    login                varchar(50)  not null,
-    password_hash        varchar(60)  not null,
-    first_name           varchar(50)  null,
-    last_name            varchar(50)  null,
-    phone_number         varchar(50)  null,
-    identity_card_number varchar(50)  null,
-    address              varchar(255) null,
-    salary               double       null,
-    position             varchar(100) null,
-    start_date           timestamp    null,
-    end_date             timestamp    null,
-    email                varchar(191) null,
-    image_url            varchar(256) null,
-    activated            bit          not null,
-    lang_key             varchar(10)  null,
-    activation_key       varchar(20)  null,
-    reset_key            varchar(20)  null,
-    created_by           varchar(50)  not null,
-    created_date         timestamp    null,
-    reset_date           timestamp    null,
-    last_modified_by     varchar(50)  null,
-    last_modified_date   timestamp    null,
-    constraint ux_user_email
-        unique (email),
-    constraint ux_user_login
-        unique (login)
-);
 
-create table if not exists tbl_employee_authority
-(
-    user_id        bigint      not null,
-    authority_name varchar(50) not null,
-    primary key (user_id, authority_name),
-    constraint fk_authority_name
-        foreign key (authority_name) references tbl_authority (name),
-    constraint fk_user_id
-        foreign key (user_id) references tbl_employee (id)
-);
+-- bida_management.tbl_authority definition
 
-create table if not exists tbl_history_billiards
-(
-    id                bigint auto_increment
-        primary key,
-    start_time_active timestamp not null,
-    end_time_active   timestamp null,
-    billiards_id      bigint    not null,
-    employee_id       bigint    not null,
-    constraint tbl_history_billibards_tbl_billiards_id_fk
-        foreign key (billiards_id) references tbl_billiards (id),
-    constraint tbl_history_billibards_tbl_employee_id_fk
-        foreign key (employee_id) references tbl_employee (id)
-);
+CREATE TABLE `tbl_authority` (
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-create table if not exists tbl_product
-(
-    id       bigint auto_increment
-        primary key,
-    name     varchar(255) null,
-    quantity int          null,
-    price    double       not null
-);
 
-create table if not exists tbl_bill
-(
-    id                    bigint auto_increment
-        primary key,
-    customer_name         varchar(100) null,
-    customer_phone_number varchar(50)  null,
-    product_name          varchar(255) null,
-    quantity              int          null,
-    price                 double       null,
-    created_date          timestamp    null,
-    total_price           double       not null,
-    history_billiards_id  bigint       not null,
-    employee_id           bigint       not null,
-    customer_id           bigint       null,
-    product_id            bigint       null,
-    constraint tbl_bill_tbl_customer_id_fk
-        foreign key (customer_id) references tbl_customer (id),
-    constraint tbl_bill_tbl_employee_id_fk
-        foreign key (employee_id) references tbl_employee (id),
-    constraint tbl_bill_tbl_history_billiards_id_fk
-        foreign key (history_billiards_id) references tbl_history_billiards (id),
-    constraint tbl_bill_tbl_product_id_fk
-        foreign key (product_id) references tbl_product (id)
-);
+-- bida_management.tbl_billiards definition
 
-create table if not exists tbl_provider
-(
-    id           bigint auto_increment
-        primary key,
-    name         varchar(255) not null,
-    address      varchar(255) null,
-    phone_number varchar(50)  null,
-    constraint tbl_provider_phone_number_uindex
-        unique (phone_number)
-);
+CREATE TABLE `tbl_billiards` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(25) DEFAULT NULL,
+  `status` int NOT NULL DEFAULT '1',
+  `price` double NOT NULL,
+  `state` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-create table if not exists tbl_history_product
-(
-    id           bigint auto_increment
-        primary key,
-    product_name varchar(255) null,
-    quantity     int          not null,
-    price        double       not null,
-    receive_date datetime     not null,
-    employee_id  bigint       not null,
-    provider_id  bigint       null,
-    constraint tbl_history_product_tbl_employee_id_fk
-        foreign key (employee_id) references tbl_employee (id),
-    constraint tbl_history_product_tbl_provider_id_fk
-        foreign key (provider_id) references tbl_provider (id)
-);
+
+-- bida_management.tbl_customer definition
+
+CREATE TABLE `tbl_customer` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  `phone_number` varchar(50) NOT NULL,
+  `date_of_birth` timestamp NULL DEFAULT NULL,
+  `status` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `tbl_customer_phone_number_uindex` (`phone_number`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- bida_management.tbl_employee definition
+
+CREATE TABLE `tbl_employee` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `login` varchar(50) NOT NULL,
+  `password_hash` varchar(60) NOT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `phone_number` varchar(50) DEFAULT NULL,
+  `identity_card_number` varchar(50) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `salary` double DEFAULT NULL,
+  `position` varchar(100) DEFAULT NULL,
+  `start_date` timestamp NULL DEFAULT NULL,
+  `end_date` timestamp NULL DEFAULT NULL,
+  `email` varchar(191) DEFAULT NULL,
+  `image_url` varchar(256) DEFAULT NULL,
+  `activated` bit(1) NOT NULL,
+  `lang_key` varchar(10) DEFAULT NULL,
+  `activation_key` varchar(20) DEFAULT NULL,
+  `reset_key` varchar(20) DEFAULT NULL,
+  `created_by` varchar(50) NOT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `reset_date` timestamp NULL DEFAULT NULL,
+  `last_modified_by` varchar(50) DEFAULT NULL,
+  `last_modified_date` timestamp NULL DEFAULT NULL,
+  `status` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ux_user_login` (`login`),
+  UNIQUE KEY `ux_user_email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- bida_management.tbl_product definition
+
+CREATE TABLE `tbl_product` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `price` double NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- bida_management.tbl_provider definition
+
+CREATE TABLE `tbl_provider` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `phone_number` varchar(50) DEFAULT NULL,
+  `note` varchar(1000) DEFAULT NULL,
+  `status` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- bida_management.tbl_employee_authority definition
+
+CREATE TABLE `tbl_employee_authority` (
+  `user_id` bigint NOT NULL,
+  `authority_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`user_id`,`authority_name`),
+  KEY `fk_authority_name` (`authority_name`),
+  CONSTRAINT `fk_authority_name` FOREIGN KEY (`authority_name`) REFERENCES `tbl_authority` (`name`),
+  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `tbl_employee` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- bida_management.tbl_history_billiards definition
+
+CREATE TABLE `tbl_history_billiards` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `start_time_active` timestamp NOT NULL,
+  `end_time_active` timestamp NULL DEFAULT NULL,
+  `billiards_id` bigint NOT NULL,
+  `employee_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tbl_history_billibards_tbl_billiards_id_fk` (`billiards_id`),
+  KEY `tbl_history_billibards_tbl_employee_id_fk` (`employee_id`),
+  CONSTRAINT `tbl_history_billibards_tbl_billiards_id_fk` FOREIGN KEY (`billiards_id`) REFERENCES `tbl_billiards` (`id`),
+  CONSTRAINT `tbl_history_billibards_tbl_employee_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `tbl_employee` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- bida_management.tbl_history_product definition
+
+CREATE TABLE `tbl_history_product` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `product_name` varchar(255) DEFAULT NULL,
+  `quantity` int NOT NULL,
+  `price` double NOT NULL,
+  `receive_date` datetime NOT NULL,
+  `employee_id` bigint NOT NULL,
+  `provider_id` bigint DEFAULT NULL,
+  `status` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `tbl_history_product_tbl_employee_id_fk` (`employee_id`),
+  KEY `tbl_history_product_tbl_provider_id_fk` (`provider_id`),
+  CONSTRAINT `tbl_history_product_tbl_employee_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `tbl_employee` (`id`),
+  CONSTRAINT `tbl_history_product_tbl_provider_id_fk` FOREIGN KEY (`provider_id`) REFERENCES `tbl_provider` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+-- bida_management.tbl_bill definition
+
+CREATE TABLE `tbl_bill` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `customer_name` varchar(100) DEFAULT NULL,
+  `customer_phone_number` varchar(50) DEFAULT NULL,
+  `product_name` varchar(255) DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `price` double DEFAULT NULL,
+  `created_date` timestamp NULL DEFAULT NULL,
+  `total_price` double NOT NULL,
+  `history_billiards_id` bigint NOT NULL,
+  `employee_id` bigint NOT NULL,
+  `customer_id` bigint DEFAULT NULL,
+  `product_id` bigint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tbl_bill_tbl_customer_id_fk` (`customer_id`),
+  KEY `tbl_bill_tbl_employee_id_fk` (`employee_id`),
+  KEY `tbl_bill_tbl_history_billiards_id_fk` (`history_billiards_id`),
+  KEY `tbl_bill_tbl_product_id_fk` (`product_id`),
+  CONSTRAINT `tbl_bill_tbl_customer_id_fk` FOREIGN KEY (`customer_id`) REFERENCES `tbl_customer` (`id`),
+  CONSTRAINT `tbl_bill_tbl_employee_id_fk` FOREIGN KEY (`employee_id`) REFERENCES `tbl_employee` (`id`),
+  CONSTRAINT `tbl_bill_tbl_history_billiards_id_fk` FOREIGN KEY (`history_billiards_id`) REFERENCES `tbl_history_billiards` (`id`),
+  CONSTRAINT `tbl_bill_tbl_product_id_fk` FOREIGN KEY (`product_id`) REFERENCES `tbl_product` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- insert data initial
 
 INSERT INTO bida_management.DATABASECHANGELOG (ID, AUTHOR, FILENAME, DATEEXECUTED, ORDEREXECUTED, EXECTYPE, MD5SUM, DESCRIPTION, COMMENTS, TAG, LIQUIBASE, CONTEXTS, LABELS, DEPLOYMENT_ID)
 VALUES ('00000000000001', 'jhipster', 'config/liquibase/changelog/00000000000000_initial_schema.xml', '2022-01-15 16:23:58', 1, 'EXECUTED', '8:46d889d3454217aee205917d68e060b9', 'createTable tableName=tbl_employee; createTable tableName=tbl_authority; createTable tableName=tbl_employee_authority; addPrimaryKey tableName=tbl_employee_authority; addForeignKeyConstraint baseTableName=tbl_employee_authority, constraintName=fk_...', '', null, '4.5.0', null, null, '2238638076');

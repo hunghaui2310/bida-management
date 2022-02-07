@@ -57,6 +57,13 @@ export const navItems: MyNavData[] = [
     nameI18n: 'nav.provider',
   },
   {
+    name: 'Statistic',
+    url: '/statistic',
+    icon: 'icon-chart',
+    roles: [Authority.ADMIN, Authority.USER],
+    nameI18n: 'nav.statistic',
+  },
+  {
     divider: true,
   },
   {

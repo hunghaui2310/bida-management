@@ -22,6 +22,8 @@ import { HistoryBilliardsListComponent } from './history-billiards-list/history-
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { LmToPipe } from './pipe/lmTo.pipe';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { BarChartComponent } from './chart/bar-chart/bar-chart.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
   imports: [
@@ -40,6 +42,9 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     ModalModule.forRoot(),
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
   ],
   declarations: [
     FindLanguageFromKeyPipe,
@@ -56,6 +61,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     StatusPipe,
     HistoryBilliardsListComponent,
     LmToPipe,
+    BarChartComponent,
   ],
   exports: [
     SharedLibsModule,
@@ -81,6 +87,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     LmToPipe,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    BarChartComponent,
   ],
 })
 export class SharedModule {}

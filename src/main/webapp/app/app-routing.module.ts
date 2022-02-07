@@ -90,6 +90,10 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
             path: 'provider',
             loadChildren: () => import('./modules/provider/provider.module').then(m => m.ProviderModule),
           },
+          {
+            path: 'statistic',
+            loadChildren: () => import('./modules/statistic/statistic.module').then(m => m.StatisticModule),
+          },
         ],
       },
       {

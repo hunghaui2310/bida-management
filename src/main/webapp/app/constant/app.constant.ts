@@ -14,3 +14,17 @@ export const STATUS_BASE = [
     value: 0,
   },
 ];
+export const CYCLES = [
+  {
+    text: 'Ngày',
+    value: 1,
+  },
+  {
+    text: 'Tháng',
+    value: 2,
+  },
+  {
+    text: 'Năm',
+    value: 3,
+  },
+];

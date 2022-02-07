@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-header d-flex justify-content-between">
+    <div>
+      <h5 jhiTranslate="statistic.title.sales">Doanh thu bán hàng</h5>
+    </div>
+    <div>
+      <ng-select [items]="cycles" [(ngModel)]="cycle" bindLabel="text" bindValue="value" [clearable]="false"></ng-select>
+    </div>
+  </div>
+  <div class="card-body">
+    <app-bar-chart></app-bar-chart>
+  </div>
+</div>
